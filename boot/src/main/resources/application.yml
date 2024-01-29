@@ -1,0 +1,67 @@
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    org.hibernate.type: trace
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - common
+        - local_database
+        - local_security
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "local_database"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hiddenevent?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul
+    username: "admin" # DB
+    password: "password" # DB
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local_security
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          jwk-set-uri: http://localhost:8081/.well-known/jwks.json
+
+    checkpoint:
+      hostname: localhost
+      protocol: http
+      port: 8081
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "common"
+  output:
+    ansi:
+      enabled: always
+server:
+  servlet:
+    encoding:
+      force-response: true # response 데이터 한글 깨짐 해결을 위해 추가..
+  port: 9001
+
