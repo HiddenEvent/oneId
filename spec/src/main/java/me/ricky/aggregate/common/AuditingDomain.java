@@ -5,7 +5,7 @@ import me.ricky.aggregate.user.domain.User;
 
 import java.io.Serializable;
 
-public abstract class AuditingDomain extends DomainEntity implements Serializable {
+public abstract class AuditingDomain extends Domain implements Serializable {
     private User createdBy;
     private User modifiedBy;
 

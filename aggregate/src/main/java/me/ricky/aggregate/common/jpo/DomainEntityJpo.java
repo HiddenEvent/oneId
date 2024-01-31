@@ -1,42 +1,46 @@
-package me.ricky.aggregate.common;
+package me.ricky.aggregate.common.jpo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
+import me.ricky.aggregate.common.Domain;
 import me.ricky.aggregate.common.json.JsonSerializable;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
-public abstract class DomainEntity implements JsonSerializable, Serializable {
-    private static final long serialVersionUID = 805201038388117274L;
-    private String id;
-    @JsonIgnore
-    private long entityVersion;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class DomainEntityJpo implements JsonSerializable {
+    @Id
+    protected String id;
+    @Version
+    protected long entityVersion;
+    @CreatedDate // 최초 생성한 날
+    @Column(updatable = false, columnDefinition = "DATETIME(6) comment '생성 일시'")
     private LocalDateTime createdAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    @LastModifiedDate  // 마지막 수정한 날
+    @Column(columnDefinition = "DATETIME(6) comment '수정 일시'")
     private LocalDateTime modifiedAt;
 
-    protected DomainEntity() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    protected DomainEntity(String id) {
+    protected DomainEntityJpo(String id) {
         this.id = id;
+        this.entityVersion = 0L;
+
     }
 
-    protected DomainEntity(DomainEntity domainEntity) {
-        this.id = domainEntity.getId();
-        this.entityVersion = domainEntity.getEntityVersion();
+    protected DomainEntityJpo(Domain domain) {
+        this.id = domain.getId();
+        this.entityVersion = domain.getEntityVersion();
     }
 
     public boolean equals(Object target) {
         if (this == target) {
             return true;
         } else if (target != null && this.getClass() == target.getClass()) {
-            DomainEntity entity = (DomainEntity)target;
+            DomainEntityJpo entity = (DomainEntityJpo) target;
             return Objects.equals(this.id, entity.id);
         } else {
             return false;
@@ -81,5 +85,8 @@ public abstract class DomainEntity implements JsonSerializable, Serializable {
 
     public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public DomainEntityJpo() {
     }
 }

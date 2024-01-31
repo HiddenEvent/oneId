@@ -1,4 +1,5 @@
 rootProject.name = 'oneId'
 include 'spec'
 include 'boot'
+include 'aggregate'
 
