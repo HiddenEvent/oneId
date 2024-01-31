@@ -34,6 +34,10 @@ spring:
         format_sql: true
         use_sql_comments: true
 
+  # db.migration.common 복사해서 디렉터리 생성 시 이슈 발생
+  # db 디렉터리 생성 -> migration 디렉터리 생성 -> common 디렉터리 생성 -> V1__init.sql 파일 생성
+  flyway:
+    baseline-on-migrate: true
 ---
 spring:
   config:

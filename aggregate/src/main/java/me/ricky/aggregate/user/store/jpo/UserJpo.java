@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.ricky.aggregate.common.jpo.DomainEntityJpo;
 import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.domain.enums.RoleType;
 import org.hibernate.annotations.Comment;
@@ -25,7 +26,7 @@ import java.io.Serializable;
 @DynamicUpdate
 @Table(name = "users")
 @Comment("회원")
-public class UserJpo extends AuditingDomainJpo implements Serializable {
+public class UserJpo extends DomainEntityJpo implements Serializable {
 
     @Comment("주소")
     private String address;
