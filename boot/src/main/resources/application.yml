@@ -38,6 +38,7 @@ spring:
   # db 디렉터리 생성 -> migration 디렉터리 생성 -> common 디렉터리 생성 -> V1__init.sql 파일 생성
   flyway:
     baseline-on-migrate: true
+    baseline-version: 0
 ---
 spring:
   config:
