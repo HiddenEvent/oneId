@@ -17,11 +17,11 @@ spring:
     activate:
       on-profile: "local_database"
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hiddenevent?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul
-    username: "admin" # DB
+    url: jdbc:mysql://localhost:3306/oneid?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Seoul
+    username: "oneidadmin" # DB
     password: "password" # DB
   jpa:
+    database: mysql
     open-in-view: false
     hibernate:
       ddl-auto: update

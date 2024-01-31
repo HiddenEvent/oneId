@@ -30,8 +30,8 @@ public class UserStore {
         return memberJpo.toDomain();
     }
 
-    public boolean existsCheckpointUser(String checkpointId) {
-        return userRepository.existsByCheckpointId(checkpointId);
+    public boolean existsCheckpointUser(String sub) {
+        return userRepository.existsBySub(sub);
     }
 
     public Page<User> searchPage(UserRequest.Search reqDto) {

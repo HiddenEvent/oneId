@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface UserRepository extends JpaRepository<UserJpo, String> {
-    UserJpo findByPhone(String phone);
-    boolean existsByCheckpointId(String checkpointId);
+    boolean existsBySub(String sub);
 }
