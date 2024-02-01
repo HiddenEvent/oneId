@@ -1,4 +1,4 @@
-package me.ricky.config;
+package me.ricky.config.keycloak;
 
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;

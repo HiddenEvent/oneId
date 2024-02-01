@@ -13,11 +13,9 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 @Builder
 public class User extends Domain {
-    private String password; //패스워드
     private String name; //이름
     private String address; //주소
     private String email; //이메일
-    private String phone; //연락처
     private RoleType roleType; //역할 유형
     private String sub; //통합 ID
 

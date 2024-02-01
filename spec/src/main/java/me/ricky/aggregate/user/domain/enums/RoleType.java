@@ -4,10 +4,9 @@ package me.ricky.aggregate.user.domain.enums;
 import me.ricky.aggregate.common.enums.EnumModel;
 
 public enum RoleType implements EnumModel {
-    ANONYMOUS("일반"),
-    NOT_PERMITTED("미권한"),
-    MANAGER("매니저"),
+    SYSTEM("시스템"),
     ADMIN("관리자"),
+    USER("사용자");
     ;
     private final String statusMsg;
 

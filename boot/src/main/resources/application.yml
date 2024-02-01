@@ -10,6 +10,10 @@ spring:
         - common
         - local_database
         - local_security
+      oneid:
+        - common
+        - local_database
+        - local_security
 
 ---
 spring:
@@ -53,7 +57,8 @@ keycloak:
   auth-server-url: http://localhost:8180
   realm: security-guide
   client-id: secapi
-  client-secret: F6C8WHiL6HpTwSCqNd5Xd7n3xF5bSoko
+  client-secret: ee2DZvaO9FDEuTSXsD0T2VjDK16w8efU
+#  client-secret: F6C8WHiL6HpTwSCqNd5Xd7n3xF5bSoko
 
 ---
 spring:
@@ -67,5 +72,5 @@ server:
   servlet:
     encoding:
       force-response: true # response 데이터 한글 깨짐 해결을 위해 추가..
-  port: 9001
+  port: 8080
 

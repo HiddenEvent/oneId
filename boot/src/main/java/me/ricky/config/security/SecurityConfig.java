@@ -1,5 +1,6 @@
-package me.ricky.config;
+package me.ricky.config.security;
 
+import me.ricky.config.keycloak.KeycloakRoleConverter;
 import me.ricky.filter.CsrfCookieFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

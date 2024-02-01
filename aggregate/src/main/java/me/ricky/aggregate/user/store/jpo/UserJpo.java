@@ -11,9 +11,11 @@ import lombok.Setter;
 import me.ricky.aggregate.common.jpo.DomainEntityJpo;
 import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.domain.enums.RoleType;
+import me.ricky.aggregate.user.facade.dto.UserRequest;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
@@ -38,16 +40,18 @@ public class UserJpo extends DomainEntityJpo implements Serializable {
     @Comment("통합 ID")
     private String sub;
 
+    public static UserJpo register(UserRequest.Register cdo, UserRepresentation oneIdUser) {
+        UserJpo userJpo = new UserJpo();
+        userJpo.setAddress(cdo.getAddress());
+        userJpo.setRoleType(cdo.getRoleType());
+        userJpo.setSub(oneIdUser.getId());
+        return userJpo;
+    }
+
     public User toDomain() {
         User doamin = new User();
         BeanUtils.copyProperties(this, doamin);
         return doamin;
-    }
-
-    public static UserJpo domainToJpo(User domain) {
-        UserJpo userJpo = new UserJpo();
-        BeanUtils.copyProperties(domain, userJpo);
-        return userJpo;
     }
 
     public void modify(User domain) {

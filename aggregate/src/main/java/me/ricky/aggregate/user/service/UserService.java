@@ -26,8 +26,7 @@ public class UserService {
     }
 
     public User registerUser(UserRequest.Register reqDto) {
-        User domain = User.genRegisterDomain(reqDto);
-        return userStore.save(domain);
+        return userStore.save(reqDto);
     }
 
     public boolean existsByUsername(String email) {

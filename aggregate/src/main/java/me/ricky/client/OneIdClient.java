@@ -60,6 +60,7 @@ public class OneIdClient implements OneIdProxy {
         UserRepresentation oneIdUserRepresent = new UserRepresentation();
         oneIdUserRepresent.setEnabled(true);
         oneIdUserRepresent.setUsername(cdo.email());
+        oneIdUserRepresent.setLastName(cdo.name());
         oneIdUserRepresent.setEmail(cdo.email());
         oneIdUserRepresent.setEmailVerified(true);
 
@@ -72,7 +73,7 @@ public class OneIdClient implements OneIdProxy {
         String sub = CreatedResponseUtil.getCreatedId(response);
         UserResource userResource = usersResource.get(sub);
         createPasswordCredential(userResource, cdo.password());
-        createRole(userResource, cdo.userRole());
+        createRole(userResource, cdo.roleType());
 
         UserRepresentation createdUser = userResource.toRepresentation();
         return createdUser;

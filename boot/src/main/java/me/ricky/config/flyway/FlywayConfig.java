@@ -1,4 +1,4 @@
-package me.ricky.config;
+package me.ricky.config.flyway;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer;

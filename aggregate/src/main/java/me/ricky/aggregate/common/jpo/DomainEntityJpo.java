@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -25,10 +26,13 @@ public abstract class DomainEntityJpo implements JsonSerializable {
     @Column(columnDefinition = "DATETIME(6) comment '수정 일시'")
     private LocalDateTime modifiedAt;
 
+    public DomainEntityJpo() {
+        this.id = UUID.randomUUID().toString();
+    }
+
     protected DomainEntityJpo(String id) {
         this.id = id;
         this.entityVersion = 0L;
-
     }
 
     protected DomainEntityJpo(Domain domain) {
@@ -85,8 +89,5 @@ public abstract class DomainEntityJpo implements JsonSerializable {
 
     public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
-    }
-
-    public DomainEntityJpo() {
     }
 }

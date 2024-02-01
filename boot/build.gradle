@@ -1,7 +1,6 @@
 dependencies {
     implementation project(':rest')
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.flywaydb:flyway-mysql'
     // keycloak 의존성 추가

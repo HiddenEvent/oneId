@@ -32,12 +32,15 @@ public class UserStore {
         return optionalUserJpo.map(UserJpo::toDomain).orElse(null);
     }
 
-    public User save(User domain) {
-        UserJpo userJpo = userRepository.save(UserJpo.domainToJpo(domain));
-        OneIdCdo oneIdCdo = new OneIdCdo(domain);
+    public User save(UserRequest.Register req) {
+        OneIdCdo oneIdCdo = new OneIdCdo(req);
         UserRepresentation oneIdUser = oneIdProxy.createUser(oneIdCdo);
+
+        UserJpo userJpo = UserJpo.register(req, oneIdUser);
+        userRepository.save(userJpo);
+
         SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser);
-        return userJpo.toDomain();
+        return singleUserPdo.toDomain();
     }
 
     public boolean existsCheckpointUser(String sub) {
