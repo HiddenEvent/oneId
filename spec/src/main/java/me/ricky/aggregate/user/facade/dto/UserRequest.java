@@ -95,10 +95,6 @@ public class UserRequest {
 		@Schema(description = "이메일", example = "a@aa.com")
 		private String email;
 
-		@NotBlank
-		@Schema(description = "연락처", example = "01000000000")
-		private String phone;
-
 		@Schema(description = "역할 유형")
 		private RoleType roleType;
 	}

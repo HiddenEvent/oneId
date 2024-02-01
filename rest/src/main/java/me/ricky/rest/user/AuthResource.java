@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.facade.dto.LoginQdo;
-import me.ricky.aggregate.user.facade.dto.OneIdCdo;
 import me.ricky.aggregate.user.facade.dto.UserRequest;
 import me.ricky.aggregate.user.service.UserService;
 import org.keycloak.representations.AccessTokenResponse;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
 
@@ -42,10 +44,4 @@ public class AuthResource {
     AccessTokenResponse response = userService.signin(loginQdo);
     return response;
   }
-//
-//  @GetMapping("/users")
-//  public ResponseEntity<?> findAllUsers(UsersSearchRequest request) {
-//    userService.findAllUsers(request);
-//    return ResponseEntity.ok(null);
-//  }
 }

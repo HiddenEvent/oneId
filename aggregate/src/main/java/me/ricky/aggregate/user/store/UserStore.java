@@ -27,10 +27,21 @@ public class UserStore {
     private final UserRepository userRepository;
     private final OneIdProxy oneIdProxy;
 
+//    public User findById(String id) {
+//        Optional<UserJpo> optionalUserJpo = userRepository.findById(id);
+//        return optionalUserJpo.map(UserJpo::toDomain).orElse(null);
+//    }
+
     public User findById(String id) {
         Optional<UserJpo> optionalUserJpo = userRepository.findById(id);
-        return optionalUserJpo.map(UserJpo::toDomain).orElse(null);
+        if (optionalUserJpo.isEmpty()) throw new RuntimeException("User not found");
+
+        UserJpo userJpo = optionalUserJpo.get();
+        Optional<UserRepresentation> oneIdUser = oneIdProxy.findBySub(userJpo.getSub());
+        SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser.get());
+        return singleUserPdo.toDomain();
     }
+
 
     public User save(UserRequest.Register req) {
         OneIdCdo oneIdCdo = new OneIdCdo(req);

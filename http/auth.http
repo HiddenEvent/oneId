@@ -1,0 +1,51 @@
+### 회원가입
+POST {{oneid}}/auth/signup
+Content-Type: application/json
+
+{
+  "email": "c@cc.com",
+  "password": "1234",
+  "roleType": "USER",
+  "name": "홍길동",
+  "address": "서울시 강남구"
+}
+
+### 회원가입 - ADMIN
+POST {{oneid}}/auth/signup
+Content-Type: application/json
+
+{
+  "email": "a@aa.com",
+  "password": "1234",
+  "roleType": "ADMIN",
+  "name": "관리자",
+  "address": "경기도 전체"
+}
+
+
+
+### 로그인 - 관리자
+POST {{oneid}}/auth/signin
+Content-Type: application/json
+
+{
+  "email": "a@aa.com",
+  "password": "1234"
+}
+
+> {%
+    client.global.set("access_token", response.body.access_token)
+%}
+
+### 로그인
+POST {{oneid}}/auth/signin
+Content-Type: application/json
+
+{
+  "email": "c@cc.com",
+  "password": "1234"
+}
+
+> {%
+    client.global.set("access_token", response.body.access_token)
+%}

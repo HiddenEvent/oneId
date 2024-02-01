@@ -1,9 +1,11 @@
 package me.ricky.config.security;
 
+import lombok.RequiredArgsConstructor;
 import me.ricky.config.keycloak.KeycloakRoleConverter;
 import me.ricky.filter.CsrfCookieFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -17,13 +19,16 @@ import java.util.Collections;
 import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+    private final KeycloakRoleConverter keycloakRoleConverter;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         // keycloak jwt Converter
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(keycloakRoleConverter);
 
         // cors
         http.cors(httpSecurityCorsConfigurer -> {
@@ -52,11 +57,6 @@ public class SecurityConfig {
         });
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);
 
-
-        // authorize
-        http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers( "error", "auth/**").permitAll()
-        );
         http.oauth2ResourceServer(oauth2ResourceServer ->
                 oauth2ResourceServer.jwt(jwt ->
                         jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)

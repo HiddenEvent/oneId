@@ -1,0 +1,4 @@
+###
+@id = 5750f150-63f0-4fa9-bd11-54df1a35f4e6
+GET {{oneid}}/users/{{id}}
+authorization: Bearer {{access_token}}
