@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserResource implements UserFacade {
     private final UserService userService;
+
+    // http://localhost:8080/swagger-ui/index.html#/
     @Override
     @GetMapping("{id}")
     @Operation(summary = "유저 단건 조회", description = "유저 단건 조회용")
