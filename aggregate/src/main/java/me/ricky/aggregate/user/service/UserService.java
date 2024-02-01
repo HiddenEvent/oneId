@@ -3,8 +3,10 @@ package me.ricky.aggregate.user.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.ricky.aggregate.user.domain.User;
+import me.ricky.aggregate.user.facade.dto.LoginQdo;
 import me.ricky.aggregate.user.facade.dto.UserRequest;
 import me.ricky.aggregate.user.store.UserStore;
+import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,14 @@ public class UserService {
     public User registerUser(UserRequest.Register reqDto) {
         User domain = User.genRegisterDomain(reqDto);
         return userStore.save(domain);
+    }
+
+    public boolean existsByUsername(String email) {
+        return userStore.existsByUsername(email);
+    }
+
+    public AccessTokenResponse signin(LoginQdo loginQdo) {
+
+        return userStore.signIn(loginQdo);
     }
 }

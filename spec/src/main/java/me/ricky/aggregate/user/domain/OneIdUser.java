@@ -1,4 +1,4 @@
-package me.ricky.aggregate.user.store.pdo;
+package me.ricky.aggregate.user.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,4 +14,5 @@ public class OneIdUser {
     private String email;
     private String name;
     private String phone;
+
 }

@@ -48,13 +48,12 @@ spring:
     oauth2:
       resource-server:
         jwt:
-          jwk-set-uri: http://localhost:8081/.well-known/jwks.json
-
-    checkpoint:
-      hostname: localhost
-      protocol: http
-      port: 8081
-
+          jwk-set-uri: http://localhost:8180/realms/security-guide/protocol/openid-connect/certs
+keycloak:
+  auth-server-url: http://localhost:8180
+  realm: security-guide
+  client-id: secapi
+  client-secret: F6C8WHiL6HpTwSCqNd5Xd7n3xF5bSoko
 
 ---
 spring:
