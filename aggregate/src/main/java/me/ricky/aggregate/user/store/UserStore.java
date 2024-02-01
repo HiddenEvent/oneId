@@ -36,10 +36,9 @@ public class UserStore {
         OneIdCdo oneIdCdo = new OneIdCdo(req);
         UserRepresentation oneIdUser = oneIdProxy.createUser(oneIdCdo);
 
-        UserJpo userJpo = UserJpo.register(req, oneIdUser);
-        userRepository.save(userJpo);
+        UserJpo savedUser = userRepository.save(UserJpo.register(req, oneIdUser));
 
-        SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser);
+        SingleUserPdo singleUserPdo = new SingleUserPdo(savedUser, oneIdUser);
         return singleUserPdo.toDomain();
     }
 
