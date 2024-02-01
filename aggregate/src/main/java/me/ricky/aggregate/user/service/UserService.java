@@ -21,10 +21,6 @@ public class UserService {
         return userStore.findById(id);
     }
 
-    public Page<User> searchPage(UserRequest.Search reqDto) {
-        return userStore.searchPage(reqDto);
-    }
-
     public User registerUser(UserRequest.Register reqDto) {
         return userStore.save(reqDto);
     }
