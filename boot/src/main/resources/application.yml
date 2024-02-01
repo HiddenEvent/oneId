@@ -57,8 +57,8 @@ keycloak:
   auth-server-url: http://localhost:8180
   realm: security-guide
   client-id: secapi
-  client-secret: ee2DZvaO9FDEuTSXsD0T2VjDK16w8efU
-#  client-secret: F6C8WHiL6HpTwSCqNd5Xd7n3xF5bSoko
+#  client-secret: ee2DZvaO9FDEuTSXsD0T2VjDK16w8efU
+  client-secret: F6C8WHiL6HpTwSCqNd5Xd7n3xF5bSoko
 
 ---
 spring:

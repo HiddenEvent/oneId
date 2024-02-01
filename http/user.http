@@ -1,4 +1,4 @@
 ### 유저 단건 조회
-@id = 5750f150-63f0-4fa9-bd11-54df1a35f4e6
+@id = 1f3f01bb-1ac5-4b6a-baa7-db55f5656164
 GET {{oneid}}/users/{{id}}
 authorization: Bearer {{access_token}}
