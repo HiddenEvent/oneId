@@ -35,8 +35,8 @@ public class UserStore {
         if (optionalUserJpo.isEmpty()) throw new RuntimeException("User not found");
 
         UserJpo userJpo = optionalUserJpo.get();
-        Optional<UserRepresentation> oneIdUser = oneIdProxy.findBySub(userJpo.getSub());
-        SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser.get());
+        UserRepresentation oneIdUser = oneIdProxy.findBySub(userJpo.getSub());
+        SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser);
         return singleUserPdo.toDomain();
     }
 
@@ -44,7 +44,6 @@ public class UserStore {
     public User save(UserRequest.Register req) {
         OneIdCdo oneIdCdo = new OneIdCdo(req);
         UserRepresentation oneIdUser = oneIdProxy.createUser(oneIdCdo);
-
         UserJpo savedUser = userRepository.save(UserJpo.register(req, oneIdUser));
 
         SingleUserPdo singleUserPdo = new SingleUserPdo(savedUser, oneIdUser);

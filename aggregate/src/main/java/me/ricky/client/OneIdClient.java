@@ -1,5 +1,6 @@
 package me.ricky.client;
 
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @ConditionalOnMissingBean(value = LocalOneIdConfig.class)
@@ -49,9 +50,13 @@ public class OneIdClient implements OneIdProxy {
     private final RealmResource realmResource;
 
     @Override
-    public Optional<UserRepresentation> findBySub(String sub) {
+    public UserRepresentation findBySub(String sub) {
         UserResource userResource = realmResource.users().get(sub);
-        return userResource == null ? Optional.empty() : Optional.of(userResource.toRepresentation());
+        try {
+            return userResource.toRepresentation();
+        } catch (Exception e) {
+            throw new NotFoundException("User not found with sub: " + sub);
+        }
     }
 
     public UserRepresentation createUser(OneIdCdo cdo) {

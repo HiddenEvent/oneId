@@ -14,8 +14,8 @@ import java.util.Optional;
 @Component
 public class LocalOneIdClient implements OneIdProxy {
     @Override
-    public Optional<UserRepresentation> findBySub(String sub) {
-        return Optional.empty();
+    public UserRepresentation findBySub(String sub) {
+        return new UserRepresentation();
     }
 
     @Override
