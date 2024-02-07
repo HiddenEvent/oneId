@@ -1,4 +1,4 @@
-package me.ricky.aggregate.common;
+package me.ricky.aggregate.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 

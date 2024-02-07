@@ -10,8 +10,6 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.*;
-import me.ricky.aggregate.common.StringUtil;
-import me.ricky.aggregate.common.util.CollectionUtil;
 import org.apache.commons.lang3.Range;
 
 import java.util.Arrays;
