@@ -1,7 +1,7 @@
 package me.ricky.aggregate.common.util;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import me.ricky.aggregate.common.dto.PagingRequest;
+import me.ricky.aggregate.common.dto.PageQdo;
 import org.springframework.data.domain.PageRequest;
 
 import java.io.Serializable;
@@ -12,8 +12,8 @@ public class RetrieveClauseBuilder implements Serializable {
 
     private static final long serialVersionUID = 4255525101821105338L;
 
-    public static PageRequest setOffsetLimit(JPAQueryFactory query, PagingRequest reqDto) {
-        PageRequest pageable = PageRequest.of(reqDto.getStart(), reqDto.getPageSize());
+    public static PageRequest setOffsetLimit(JPAQueryFactory query, PageQdo reqDto) {
+        PageRequest pageable = PageRequest.of(reqDto.getOffset(), reqDto.getLimit());
 
         query.from()
                 .offset(pageable.getOffset())

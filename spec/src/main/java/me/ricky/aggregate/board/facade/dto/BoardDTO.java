@@ -2,7 +2,6 @@ package me.ricky.aggregate.board.facade.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import me.ricky.aggregate.common.dto.SearchRequest;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +23,7 @@ public class BoardDTO {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
-	public static class Search extends SearchRequest {
+	public static class Search {
 		@Schema(description = "게시판 일련번호", example = "1")
 		private Long id;
 

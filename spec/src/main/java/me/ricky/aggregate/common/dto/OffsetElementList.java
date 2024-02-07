@@ -1,12 +1,16 @@
 package me.ricky.aggregate.common.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+@Schema(description = "페이징 결과 정보")
 public class OffsetElementList<T> implements Iterable<T>, Serializable {
+    @Schema(description = "결과 목록")
     private List<T> results;
+    @Schema(description = "전체 건수")
     private int totalCount;
 
     protected OffsetElementList() {
@@ -38,7 +42,7 @@ public class OffsetElementList<T> implements Iterable<T>, Serializable {
     public void add(T result) {
         this.results.add(result);
     }
-
+    @Schema(description = "결과 목록이 비어있는지 여부")
     public boolean isEmpty() {
         return this.results == null || this.results.isEmpty();
     }

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import me.ricky.aggregate.common.dto.SearchRequest;
 import me.ricky.aggregate.user.domain.enums.RoleType;
 
 @Getter @Setter
@@ -25,7 +24,7 @@ public class UserRequest {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@Builder
-	public static class Search extends SearchRequest {
+	public static class Search{
 		@Schema(description = "회원 ID")
 		private String id;
 

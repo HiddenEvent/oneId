@@ -9,11 +9,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SearchRequest extends PagingRequest {
+public class SearchQdo extends PageQdo {
     @Schema(description = "검색어")
     private String searchText;
     @Schema(description = "검색 시작 일자 ex) yyyy-MM-dd")
-    private String searchStartDate;
+    private String startDate;
     @Schema(description = "검색 종료 일자 ex) yyyy-MM-dd")
-    private String searchEndDate;
+    private String endDate;
 }
