@@ -1,12 +1,15 @@
 package me.ricky.aggregate.user.store;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import me.ricky.aggregate.common.dto.OffsetElementList;
 import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.facade.dto.LoginQdo;
 import me.ricky.aggregate.user.facade.dto.OneIdCdo;
 import me.ricky.aggregate.user.facade.dto.UserRequest;
+import me.ricky.aggregate.user.facade.dto.UserSearchQdo;
 import me.ricky.aggregate.user.store.jpo.UserJpo;
 import me.ricky.aggregate.user.store.pdo.SingleUserPdo;
 import me.ricky.aggregate.user.store.repository.UserRepository;
@@ -15,7 +18,10 @@ import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+
+import static me.ricky.aggregate.user.store.jpo.QUserJpo.userJpo;
 
 @Repository
 @RequiredArgsConstructor
@@ -53,10 +59,23 @@ public class UserStore {
     public boolean existsCheckpointUser(String sub) {
         return userRepository.existsBySub(sub);
     }
+
     public boolean existsByUsername(String email) {
         return oneIdProxy.existsByUsername(email);
     }
+
     public AccessTokenResponse signIn(LoginQdo loginQdo) {
         return oneIdProxy.signIn(loginQdo);
+    }
+
+    public OffsetElementList<User> search(UserSearchQdo qdo) {
+        List<SingleUserPdo> singleUserPdos = queryFactory.select(Projections.constructor(
+                        SingleUserPdo.class
+                        , userJpo
+                ))
+                .from(userJpo)
+                .fetch();
+
+        return null;
     }
 }

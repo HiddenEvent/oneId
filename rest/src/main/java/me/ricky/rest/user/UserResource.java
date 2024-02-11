@@ -37,8 +37,7 @@ public class UserResource implements UserFacade {
     @GetMapping
     @Override
     @Operation(summary = "유저 목록 조회", description = "유저 목록 조회용")
-    public OffsetElementList<User> findAll(@ParameterObject UserSearchQdo qdo) {
-        System.out.println("userSearchQdo = " + qdo);
-        return null;
+    public OffsetElementList<User> search(@ParameterObject UserSearchQdo qdo) {
+        return userService.search(qdo);
     }
 }

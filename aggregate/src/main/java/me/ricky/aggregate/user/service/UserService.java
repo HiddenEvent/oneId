@@ -2,12 +2,13 @@ package me.ricky.aggregate.user.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.ricky.aggregate.common.dto.OffsetElementList;
 import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.facade.dto.LoginQdo;
 import me.ricky.aggregate.user.facade.dto.UserRequest;
+import me.ricky.aggregate.user.facade.dto.UserSearchQdo;
 import me.ricky.aggregate.user.store.UserStore;
 import org.keycloak.representations.AccessTokenResponse;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 
@@ -32,5 +33,10 @@ public class UserService {
     public AccessTokenResponse signin(LoginQdo loginQdo) {
 
         return userStore.signIn(loginQdo);
+    }
+
+    public OffsetElementList<User> search(UserSearchQdo qdo) {
+
+        return userStore.search(qdo);
     }
 }

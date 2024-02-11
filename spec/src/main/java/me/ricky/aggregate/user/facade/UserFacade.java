@@ -9,5 +9,5 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public interface UserFacade {
     User findById(String id);
-    OffsetElementList<User> findAll(UserSearchQdo userSearchQdo);
+    OffsetElementList<User> search(UserSearchQdo userSearchQdo);
 }
