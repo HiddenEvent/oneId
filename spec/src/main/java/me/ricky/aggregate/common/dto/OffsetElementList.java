@@ -11,18 +11,18 @@ public class OffsetElementList<T> implements Iterable<T>, Serializable {
     @Schema(description = "결과 목록")
     private List<T> results;
     @Schema(description = "전체 건수")
-    private int totalCount;
+    private long totalCount;
 
     protected OffsetElementList() {
         this.results = new ArrayList();
     }
 
-    public OffsetElementList(int totalCount) {
+    public OffsetElementList(long totalCount) {
         this();
         this.totalCount = totalCount;
     }
 
-    public OffsetElementList(List<T> results, int totalCount) {
+    public OffsetElementList(List<T> results, long totalCount) {
         this.results = results;
         this.totalCount = totalCount;
     }
@@ -55,11 +55,11 @@ public class OffsetElementList<T> implements Iterable<T>, Serializable {
         this.results = results;
     }
 
-    public int getTotalCount() {
+    public long getTotalCount() {
         return this.totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
     }
 }

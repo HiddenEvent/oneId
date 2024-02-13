@@ -6,6 +6,8 @@ import me.ricky.aggregate.user.domain.User;
 import me.ricky.aggregate.user.store.jpo.UserJpo;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class SingleUserPdo {
@@ -16,11 +18,19 @@ public class SingleUserPdo {
         this.userJpo = userJpo;
     }
 
-    public User toDomain() {
+    public static List<User> toUsers(List<SingleUserPdo> singleUserPdos) {
+        return singleUserPdos.stream()
+                .map(SingleUserPdo::toUser)
+                .toList();
+    }
+
+    public User toUser() {
         User domain = userJpo.toDomain();
-        domain.setSub(oneIdUser.getId());
-        domain.setEmail(oneIdUser.getEmail());
-        domain.setName(oneIdUser.getLastName());
+        if (oneIdUser != null) {
+            domain.setSub(oneIdUser.getId());
+            domain.setEmail(oneIdUser.getEmail());
+            domain.setName(oneIdUser.getLastName());
+        }
         return domain;
     }
 }

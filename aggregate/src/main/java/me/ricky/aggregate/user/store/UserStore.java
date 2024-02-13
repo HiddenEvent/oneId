@@ -43,7 +43,7 @@ public class UserStore {
         UserJpo userJpo = optionalUserJpo.get();
         UserRepresentation oneIdUser = oneIdProxy.findBySub(userJpo.getSub());
         SingleUserPdo singleUserPdo = new SingleUserPdo(userJpo, oneIdUser);
-        return singleUserPdo.toDomain();
+        return singleUserPdo.toUser();
     }
 
 
@@ -53,7 +53,7 @@ public class UserStore {
         UserJpo savedUser = userRepository.save(UserJpo.register(req, oneIdUser));
 
         SingleUserPdo singleUserPdo = new SingleUserPdo(savedUser, oneIdUser);
-        return singleUserPdo.toDomain();
+        return singleUserPdo.toUser();
     }
 
     public boolean existsCheckpointUser(String sub) {
@@ -69,13 +69,23 @@ public class UserStore {
     }
 
     public OffsetElementList<User> search(UserSearchQdo qdo) {
-        List<SingleUserPdo> singleUserPdos = queryFactory.select(Projections.constructor(
+        List<SingleUserPdo> contents = queryFactory.select(Projections.constructor(
                         SingleUserPdo.class
                         , userJpo
                 ))
                 .from(userJpo)
+                .offset(qdo.getOffset())
+                .limit(qdo.getLimit())
+                .orderBy(userJpo.createdAt.desc())
                 .fetch();
 
-        return null;
+        Long count = 0L;
+        if (!contents.isEmpty()) {
+            count = queryFactory.select(userJpo.count())
+                    .from(userJpo)
+                    .fetchOne();
+        }
+
+        return new OffsetElementList<>(SingleUserPdo.toUsers(contents), count);
     }
 }
